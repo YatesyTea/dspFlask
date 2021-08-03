@@ -1,5 +1,7 @@
-from main import main
-from flask import Flask, render_template, redirect, request, url_for
+import main
+import json
+import random
+from flask import Flask, render_template, redirect, request, url_for, jsonify
 from flask_wtf import FlaskForm
 from wtforms import IntegerField, SubmitField
 from wtforms.validators import DataRequired
@@ -24,11 +26,6 @@ def home():
         fat = form.fat.data
         calories = form.calories.data
         protein = form.protein.data
-        
-        recipes = main(fat, calories, protein)
-        print("Printing from app.. ")
-        print(recipes)
-        print(f"type, from app, is {type(recipes)}")
 
         form.fat.data = ""
         form.calories.data = ""
@@ -36,14 +33,19 @@ def home():
 
         message = "Thank you. You will now be redirected to your bespoke recipe recommendations" 
         
-        return render_template("recipes.html", recipes=recipes)
+        return redirect(url_for(f"recipes", fat=fat, calories=calories, protein=protein))
     
     return render_template("index.html", form=form, message=message)
 
-@app.route("/my_recipes")
-def my_recipes(fat, protein, calories):
-    recipes = list(main(fat, protein, calories))
-    return recipes
+@app.route("/recipes/<fat>_<calories>_<protein>")
+def recipes(fat, calories, protein):
 
+    recipes = random.choices(list(main.find_recipes(fat,calories,protein)), k=3)
+    return render_template("recipes.html", recipes=recipes)
+
+@app.route("/instructions/<recipe_id>")
+def instructions(recipe):
+
+    return render_template("instructions.html", recipe=recipe)
 if __name__ == "__main__":
     app.run(port=5000, debug=True)

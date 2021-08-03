@@ -1,27 +1,20 @@
 import pymongo
+import json
 
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["recipeDB"]
 mycol = mydb["recipes"]
 
-'''
-Given parameters fat / g, calories /cal, and protein / g: 
-Returns at least three recipe suggestions.
--> list of dictionaries, each dict item is a recipe.
-'''
-def main(fat, calories, protein):
-    # fat = int(input("Fat: "))
-    # calories = int(input("Calories: "))
-    # protein = int(input("Protein: "))
 
-    find_recipes(fat,calories,protein)
 
 '''
-Given parameters (fat, calories, protein) anf the ranges (set to 5, 100, 5 by default):
+Given parameters (fat, calories, protein) and the ranges (set to 5, 100, 5 by default):
 Returns a mongodb query
 '''
 def get_query(fat, calories, protein, fat_range, calories_range, protein_range):
     
+    fat, calories, protein = int(fat), int(calories), int(protein)
+
     myquery = {
     "fat" : {"$gte": fat-fat_range,"$lte": fat+fat_range},
     'calories' : {"$gte": calories-calories_range,"$lte": calories+calories_range},
@@ -29,6 +22,8 @@ def get_query(fat, calories, protein, fat_range, calories_range, protein_range):
     }
 
     return myquery
+
+
 
 '''
 Given parameters fat / g, calories /cal, and protein / g: 
@@ -44,10 +39,8 @@ def find_recipes(fat, calories, protein):
     query = get_query(fat, calories, protein, fat_range, calories_range, protein_range)
     results_count = mycol.count_documents(query)
 
-    while results_count < 3:
+    while results_count < 10:
         print(f"Only {results_count} results can be found, widening the search... ")
-        print(calories_range, protein_range, fat_range)        
-        
         fat_range += 3
         calories_range +=50
         protein_range +=3
@@ -57,20 +50,15 @@ def find_recipes(fat, calories, protein):
 
     
     mydoc = mycol.find(query)
-    print(list(mydoc)[0:2])
-    print(f"type, from main, is {type(list(mydoc))}")
+    # print("Printing from main...")
+    # print(f"type, from main, is {type(mydoc)} of length {len(list(mydoc))}")
+
     # for count,x in enumerate(mydoc,1):
     #     print(f"{count}. {x['title']}")
-    #     print(f"Fat: {x['fat']}, Calories: {x['calories']}, Protein {x['protein']}")
 
-        # if count == 10:
-        #     more = input("Would you like to see the remaining recipes? Y/N").upper()
-        #     if more == "Y":
-        #         continue
-        #     else: 
-        #         break
-    return list(mydoc)
+    return mydoc
 
 
 if __name__ == "__main__":
-    main()
+    fat, calories, protein = 20, 600, 20
+    find_recipes(fat,calories,protein)
