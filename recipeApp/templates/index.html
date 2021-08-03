@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+      <div class="col-md-10 col-lg-8 mx-lg-auto mx-md-auto">
+  
+        <h1 class="pt-5 pb-2">Welcome to this recipe-generation app.</p>
+  
+        <p class="lead">Here you can submit your dietary preferences and we will generate a set of recipe suggestions which match your query. We will aim to give you at least 3 results. </p>
+        <form method="POST">
+          
+            {{ form.csrf_token }}
+
+          <p>
+            {{ form.fat.label }}
+          </p>
+          <p>
+            {{ form.fat(size=10) }}
+          </p>
+          <p>
+            {{ form.calories.label }}
+          </p>
+          <p>
+            {{ form.calories(size=10) }}
+          </p>          
+          <p>
+            {{ form.protein.label }}
+          </p>
+          <p>
+            {{ form.protein(size=10) }}
+          </p>          
+          <p>
+            {{ form.name.label }}
+          </p>
+
+          <input type="submit" value="Submit">
+        </form>
+        
+        
+        <p class="pt-5"><strong>{{ message }}</strong></p>
+          
+      </div>
+    </div>
+  </div>
+{% endblock %}

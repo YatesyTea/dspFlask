@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}  
+    <div class="container" ></div>
+        <div class="card-group">
+            {% for recipe in recipes %}
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                <h5 class="card-title">{{ recipe['title'] }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">Fat:{{ recipe['fat'] }}, Calories: {{ recipe['calories'] }}, Protein: {{ recipe['protein'] }}</h6>
+                <p class="card-text">{{ recipe['directions'] }}</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
