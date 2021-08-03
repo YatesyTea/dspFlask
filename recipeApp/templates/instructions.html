@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+<h1>{{ recipe['title'] }}</h1>
+{% block content %}
+
+
+<h2>Ingredients</h2>
+{% for ingredient in recipe['ingredients'] %}
+    <p>{{ ingredient }}</p>
+{% endfor %}
+
+<h2>Instructions</h2>
+{% for count,direction in enumerate(recipe['directions'],1) %}
+    <p>{{ count }}. {{ direction }}</p>
+{% endfor %}
+
+{% endblock %}
