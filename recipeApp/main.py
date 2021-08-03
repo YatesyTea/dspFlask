@@ -57,9 +57,11 @@ def find_recipes(fat, calories, protein):
 
     
     mydoc = mycol.find(query)
-    for count,x in enumerate(mydoc,1):
-        print(f"{count}. {x['title']}")
-        print(f"Fat: {x['fat']}, Calories: {x['calories']}, Protein {x['protein']}")
+    print(list(mydoc)[0:2])
+    print(f"type, from main, is {type(list(mydoc))}")
+    # for count,x in enumerate(mydoc,1):
+    #     print(f"{count}. {x['title']}")
+    #     print(f"Fat: {x['fat']}, Calories: {x['calories']}, Protein {x['protein']}")
 
         # if count == 10:
         #     more = input("Would you like to see the remaining recipes? Y/N").upper()
@@ -67,7 +69,7 @@ def find_recipes(fat, calories, protein):
         #         continue
         #     else: 
         #         break
-        return list(mydoc)
+    return list(mydoc)
 
 
 if __name__ == "__main__":

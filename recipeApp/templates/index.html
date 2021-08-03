@@ -9,7 +9,6 @@
   
         <p class="lead">Here you can submit your dietary preferences and we will generate a set of recipe suggestions which match your query. We will aim to give you at least 3 results. </p>
         <form method="POST">
-          
             {{ form.csrf_token }}
 
           <p>
@@ -30,9 +29,6 @@
           <p>
             {{ form.protein(size=10) }}
           </p>          
-          <p>
-            {{ form.name.label }}
-          </p>
 
           <input type="submit" value="Submit">
         </form>
