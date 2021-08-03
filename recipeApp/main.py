@@ -1,56 +1,57 @@
 import pymongo
-# app connects to DB
-# Connect to the recipes database
+
 myclient = pymongo.MongoClient("mongodb://localhost:27017/")
 mydb = myclient["recipeDB"]
 mycol = mydb["recipes"]
 
-# takes user's input for preferences
-fat = int(input("Fat: "))
-calories = int(input("Calories: "))
-protein = int(input("Protein: "))
-# vegan"yes/no"
-# sodium = int(input("sodium"))
+def main():
+    fat = int(input("Fat: "))
+    calories = int(input("Calories: "))
+    protein = int(input("Protein: "))
 
-# Selection of Size of Each Meal comparative to others
-# meal1 = int(input("0 1 2 3:"))
-# meal2 = int(input("0 1 2 3:"))
-# meal3 = int(input("0 1 2 3:"))
+    find_recipes(fat,calories,protein)
 
-# Set Search Ranges
-fatRange = 5
-caloriesRange = 100
-proteinRange = 5
-
-recipeNotFound = True
-while recipeNotFound == True:
+def get_query(fat, calories, protein, fat_range, calories_range, protein_range):
     
-    # Query using variables provided.
     myquery = {
-        "fat" : {"$gte": fat-fatRange,"$lte": fat+fatRange},
-        'calories' : {"$gte": calories-caloriesRange,"$lte": calories+caloriesRange},
-        'protein' : {"$gte": protein-proteinRange,"$lte": protein+proteinRange}
+    "fat" : {"$gte": fat-fat_range,"$lte": fat+fat_range},
+    'calories' : {"$gte": calories-calories_range,"$lte": calories+calories_range},
+    'protein' : {"$gte": protein-protein_range,"$lte": protein+protein_range}
     }
 
-    # List of all recipes within bounds:
-    mydoc = mycol.find(myquery)
+    return myquery
+
+# Parameter-based MLto widen search if necessary
+def find_recipes(fat, calories, protein):
+    fat_range = 5
+    calories_range = 100
+    protein_range = 5
+
+    query = get_query(fat, calories, protein, fat_range, calories_range, protein_range)
+    results_count = mycol.count_documents(query)
+
+    while results_count < 3:
+        print(f"Only {results_count} results can be found, widening the search... ")
+        print(calories_range, protein_range, fat_range)        
+        
+        fat_range += 3
+        calories_range +=50
+        protein_range +=3
+        
+        query = get_query(fat, calories, protein, fat_range, calories_range, protein_range)
+        results_count = mycol.count_documents(query)
+
     
-    # If we've got recipes to use here.
-    if mydoc != None:
-        recipeNotFound = False
-    # Increase Search Parameters if none found within bounds.
-    else:
-        fatRange += 3
-        caloriesRange +=50
-        proteinRange +=3
+    mydoc = mycol.find(query)
+    for count,x in enumerate(mydoc,1):
+        print(f"{count}. {x['title']}")
+        print(f"Fat: {x['fat']}, Calories: {x['calories']}, Protein {x['protein']}")
+        if count == 10:
+            more = input("Would you like to see the remaining recipes? Y/N").upper()
+            if more == "Y":
+                continue
+            else: 
+                break
 
-    for x in mydoc:
-            print(f"Fat: {x['fat']} Calories {x['calories']}, Protein {x['protein']}")
-
-    
-# Selection of recipes (tournament)
-
-
-# print(mydoc[choose(rand int in range len mydoc )])
-
-# generates recipe (randomly / ML) based on search 
+if __name__ == "__main__":
+    main()
