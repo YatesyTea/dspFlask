@@ -1,16 +1,47 @@
 {% extends 'base.html' %}
-<h1>{{ recipe['title'] }}</h1>
 {% block content %}
+<br>
+<br>
 
+<div class="container">
+    <div class="card text-blue bg-info text-center">
+    <div class="card-body">
+        <h1 class="card-title">{{ recipe['title'] }}</h1>
+        <p class="card-text">Fat: {{ recipe['fat'] }}, Calories: {{ recipe['calories'] }}, Protein: {{ recipe['protein'] }}</p>
+    </div>
+    </div>
+    <br>
+    <br>
 
-<h2>Ingredients</h2>
-{% for ingredient in recipe['ingredients'] %}
-    <p>{{ ingredient }}</p>
-{% endfor %}
+    <div class="row">
+    <div class="col-sm-6">
+        <div class="card text-blue bg-info">
+        <div class="card-body">
+            <h5 class="card-title">Ingredients</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">Special title treatment</h5>
+            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+            <a href="#" class="btn btn-primary">Go somewhere</a>
+        </div>
+        </div>
+    </div>
+    </div>
 
-<h2>Instructions</h2>
-{% for count,direction in enumerate(recipe['directions'],1) %}
-    <p>{{ count }}. {{ direction }}</p>
-{% endfor %}
+    <h2>Ingredients</h2>
+    {% for ingredient in recipe['ingredients'] %}
+        <p>{{ ingredient }}</p>
+    {% endfor %}
 
+    <h2>Instructions</h2>
+    {% for direction in recipe['directions'] %}
+        <p>{{ direction }}</p>
+    {% endfor %}
+</div>
 {% endblock %}
