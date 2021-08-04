@@ -13,27 +13,28 @@
     <br>
     <br>
 
-    <div class="row">
-    <div class="col-sm-6">
-        <div class="card text-blue bg-info">
-        <div class="card-body">
-            <h3 class="card-title">Ingredients</h3>
-            {% for ingredient in recipe['ingredients'] %}
-                <p class = "card-text">{{ ingredient }}</p>
-            {% endfor %}      
+    <div class="row">    
+        <div class="col-sm-6">
+            <div class="card text-blue bg-info">
+            <div class="card-body">
+                <h3 class="card-title">Instructions</h3>
+                {% for direction in recipe['directions'] %}
+                    <p class = "card-text">{{ direction }}</p>
+                {% endfor %}      
+            </div>
+            </div>
         </div>
+        <div class="col-sm-6">
+            <div class="card text-blue bg-info">
+            <div class="card-body">
+                <h3 class="card-title">Ingredients</h3>
+                {% for ingredient in recipe['ingredients'] %}
+                    <p class = "card-text">{{ ingredient }}</p>
+                {% endfor %}      
+            </div>
+            </div>
         </div>
-    </div>
-    <div class="col-sm-6">
-        <div class="card text-blue bg-info">
-        <div class="card-body">
-            <h3 class="card-title">Instructions</h3>
-            {% for direction in recipe['directions'] %}
-                <p class = "card-text">{{ direction }}</p>
-            {% endfor %}      
-        </div>
-        </div>
-    </div>
+
     </div>
 </div>
 {% endblock %}
