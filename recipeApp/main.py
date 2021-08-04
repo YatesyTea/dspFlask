@@ -41,9 +41,9 @@ def find_recipes(fat, calories, protein):
 
     while results_count < 10:
         print(f"Only {results_count} results can be found, widening the search... ")
-        fat_range += 3
+        fat_range += 5
         calories_range +=50
-        protein_range +=3
+        protein_range +=5
         
         query = get_query(fat, calories, protein, fat_range, calories_range, protein_range)
         results_count = mycol.count_documents(query)
