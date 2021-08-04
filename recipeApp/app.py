@@ -43,9 +43,8 @@ def recipes(fat, calories, protein):
     recipes = random.choices(list(main.find_recipes(fat,calories,protein)), k=3)
     return render_template("recipes.html", recipes=recipes)
 
-@app.route("/instructions/<recipe_id>")
+@app.route("/instructions")
 def instructions(recipe):
-
     return render_template("instructions.html", recipe=recipe)
 if __name__ == "__main__":
     app.run(port=5000, debug=True) 
