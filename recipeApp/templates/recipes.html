@@ -2,13 +2,24 @@
 
 
 {% block content %}  
+
     <div class="container">
 
-        <h1>
-            Try these recipes today! Don't like what you see? Hit the 'Try Again' button to generate more recipes.
-        </h1>
+        <div class="card text-blue bg-info text-center">
+            <div class="card-body">
+            <h5 class="card-title">Try these recipes today!</h5>
+            <p class="card-text">Don't like what you see? Hit the 'Try Again' button to generate some more recipes.</p>
+            </div>
+        </div>
 
-        <div class="row">
+        <h1>
+        <h1>
+        <h1>
+        <h1>
+        <h1>
+        <h1>
+        
+            <div class="row">
             <div class="card-group">
                 {% for recipe in recipes %}
                 <div class="col-sm-4">
@@ -16,7 +27,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ recipe['title'] }}</h5>
                         <h6 class="card-subtitle mb-3 text">Fat: {{ recipe['fat'] }}, Calories: {{ recipe['calories'] }}, Protein: {{ recipe['protein'] }}</h6>
-                        <a href="/ingredients/">More Details</a>
+                        <a class="btn btn-dark " href="/instructions">More Details</a>
                     </div>
                     </div>
                 </div>

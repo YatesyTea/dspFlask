@@ -39,7 +39,7 @@ def home():
 
 @app.route("/recipes/<fat>_<calories>_<protein>")
 def recipes(fat, calories, protein):
-
+    # error exception here to redirect them to homepage if they enter nothing
     recipes = random.choices(list(main.find_recipes(fat,calories,protein)), k=3)
     return render_template("recipes.html", recipes=recipes)
 
@@ -48,4 +48,4 @@ def instructions(recipe):
 
     return render_template("instructions.html", recipe=recipe)
 if __name__ == "__main__":
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=True) 
