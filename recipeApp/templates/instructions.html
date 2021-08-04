@@ -17,31 +17,23 @@
     <div class="col-sm-6">
         <div class="card text-blue bg-info">
         <div class="card-body">
-            <h5 class="card-title">Ingredients</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <h3 class="card-title">Ingredients</h3>
+            {% for ingredient in recipe['ingredients'] %}
+                <p class = "card-text">{{ ingredient }}</p>
+            {% endfor %}      
         </div>
         </div>
     </div>
     <div class="col-sm-6">
-        <div class="card">
+        <div class="card text-blue bg-info">
         <div class="card-body">
-            <h5 class="card-title">Special title treatment</h5>
-            <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <h3 class="card-title">Instructions</h3>
+            {% for direction in recipe['directions'] %}
+                <p class = "card-text">{{ direction }}</p>
+            {% endfor %}      
         </div>
         </div>
     </div>
     </div>
-
-    <h2>Ingredients</h2>
-    {% for ingredient in recipe['ingredients'] %}
-        <p>{{ ingredient }}</p>
-    {% endfor %}
-
-    <h2>Instructions</h2>
-    {% for direction in recipe['directions'] %}
-        <p>{{ direction }}</p>
-    {% endfor %}
 </div>
 {% endblock %}
